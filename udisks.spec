@@ -13,7 +13,7 @@
 Summary: Storage Management Service
 Name: udisks
 Version: 1.0.1
-Release: 4%{?dist}
+Release: 7%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
 URL: http://www.freedesktop.org/wiki/Software/udisks
@@ -53,6 +53,10 @@ Requires: mtools
 
 Patch1: udisks-1.0.1-disable-dm-watch.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=1070145
+# EMBARGOED CVE-2014-0004 udisks: udisks and udisks2: stack-based buffer overflow when handling long path names [rhel-6.5.z]
+Patch2: buffer-overflow.patch
+
 # for /proc/self/mountinfo, only available in 2.6.26 or higher
 Conflicts: kernel < 2.6.26
 
@@ -78,11 +82,21 @@ Obsoletes: DeviceKit-disks-devel <= 009
 Provides: DeviceKit-disks-devel = 010
 
 %description devel
-D-Bus interface definitions and documentation for udisks.
+D-Bus interface definitions for udisks.
+
+%package devel-docs
+Summary: Documentation for D-Bus interface of udisks
+Group: Development/Libraries
+Requires: %{name}-devel = %{version}-%{release}
+BuildArch: noarch
+
+%description devel-docs
+D-Bus interface documentation for udisks.
 
 %prep
 %setup -q
 %patch1 -p1 -b .disable-dm-watch
+%patch2 -p1 -b .buffer-overflow
 
 %build
 %configure --enable-gtk-doc --disable-lvm2 --disable-dmmp --disable-remote-access
@@ -144,12 +158,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/dbus-1/interfaces/*.xml
 %{_datadir}/pkgconfig/udisks.pc
 
+%files devel-docs
+%defattr(-,root,root,-)
+
 %dir %{_datadir}/gtk-doc/html/udisks
 %{_datadir}/gtk-doc/html/udisks/*
 
 # Note: please don't forget the %{?dist} in the changelog. Thanks
 #
 %changelog
+* Wed Mar 12 2014 Huzaifa Sidhpurwala <huzaifas@redhat.com> - 1.0.1-7%{?dist}
+- Make sure doc subpackage is noarch
+
+* Tue Mar 11 2014 Zeeshan Ali <zeenix@redhat.com> - 1.0.1-6%{?dist}
+- Put devel-docs in a separate package (related: rhbz#1070145) .
+
+* Mon Mar 10 2014 Zeeshan Ali <zeenix@redhat.com> - 1.0.1-5%{?dist}
+- Related: rhbz#1070145.
+
 * Thu Oct 13 2011 David Zeuthen <davidz@redhat.com> - 1.0.1-4%{?dist}
 - Rebuild
 - Related: rhbz#738479
