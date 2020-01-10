@@ -1,0 +1,27 @@
+diff -up udisks-1.0.1/src/device.c.dm-suspended-noremove udisks-1.0.1/src/device.c
+--- udisks-1.0.1/src/device.c.dm-suspended-noremove	2015-03-04 08:51:33.095417921 +0100
++++ udisks-1.0.1/src/device.c	2015-03-04 08:53:15.718915834 +0100
+@@ -5231,15 +5231,21 @@ device_changed (Device *device,
+                 gboolean synthesized)
+ {
+   gboolean keep_device;
++  gboolean dm_suspended;
+ 
+   g_object_unref (device->priv->d);
+   device->priv->d = g_object_ref (d);
+ 
+   keep_device = update_info (device);
++  dm_suspended = g_str_has_prefix (g_udev_device_get_name (d), "dm-") &&
++                 g_strcmp0 (g_udev_device_get_property (d, "DM_SUSPENDED"), "1") == 0;
+ 
+   /* this 'change' event might prompt us to remove the device */
+-  if (!keep_device)
+-    goto out;
++  if (!keep_device && !dm_suspended)
++    {
++      keep_device = TRUE;
++      goto out;
++    }
+ 
+   /* no, it's good .. keep it.. and always force a 'change' signal if the event isn't synthesized */
+   drain_pending_changes (device, !synthesized);

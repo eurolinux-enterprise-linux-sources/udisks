@@ -13,7 +13,7 @@
 Summary: Storage Management Service
 Name: udisks
 Version: 1.0.1
-Release: 7%{?dist}
+Release: 9%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
 URL: http://www.freedesktop.org/wiki/Software/udisks
@@ -53,9 +53,18 @@ Requires: mtools
 
 Patch1: udisks-1.0.1-disable-dm-watch.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=1070145
-# EMBARGOED CVE-2014-0004 udisks: udisks and udisks2: stack-based buffer overflow when handling long path names [rhel-6.5.z]
+# https://bugzilla.redhat.com/show_bug.cgi?id=1070147
+# EMBARGOED CVE-2014-0004 udisks: udisks and udisks2: stack-based buffer overflow when handling long path names [rhel-6.6]
 Patch2: buffer-overflow.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=673102
+# [RFE] Make read-only mount of removable media enforceable
+# https://bugs.freedesktop.org/show_bug.cgi?id=33461
+Patch3: udisks-add-udev-mount-options-take-3.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=1121742
+# External storage device mounts can get force umounted during testing involving adapter removes and adds
+Patch4: udisks-dm-suspended-noremove.patch
 
 # for /proc/self/mountinfo, only available in 2.6.26 or higher
 Conflicts: kernel < 2.6.26
@@ -97,6 +106,8 @@ D-Bus interface documentation for udisks.
 %setup -q
 %patch1 -p1 -b .disable-dm-watch
 %patch2 -p1 -b .buffer-overflow
+%patch3 -p1 -b .add-udev-mount-options
+%patch4 -p1 -b .dm-suspended-noremove
 
 %build
 %configure --enable-gtk-doc --disable-lvm2 --disable-dmmp --disable-remote-access
@@ -167,14 +178,22 @@ rm -rf $RPM_BUILD_ROOT
 # Note: please don't forget the %{?dist} in the changelog. Thanks
 #
 %changelog
+* Wed Mar 04 2015 Tomas Smetana <tsmetana@redhat.com> - 1.0.1-9%{?dist}
+- Improve patch for #1121742
+- Related: rhbz#1121742
+
+* Thu Feb 19 2015 Tomas Bzatek <tbzatek@redhat.com> - 1.0.1-8%{?dist}
+- Allow extra mount options from udev rules (#673102, #681875)
+- Do not force-unmount devices marked as DM_SUSPENDED (#1121742)
+
 * Wed Mar 12 2014 Huzaifa Sidhpurwala <huzaifas@redhat.com> - 1.0.1-7%{?dist}
 - Make sure doc subpackage is noarch
 
 * Tue Mar 11 2014 Zeeshan Ali <zeenix@redhat.com> - 1.0.1-6%{?dist}
-- Put devel-docs in a separate package (related: rhbz#1070145) .
+- Put devel-docs in a separate package (related: rhbz#11070147) .
 
-* Mon Mar 10 2014 Zeeshan Ali <zeenix@redhat.com> - 1.0.1-5%{?dist}
-- Related: rhbz#1070145.
+* Mon Mar 11 2014 Zeeshan Ali <zeenix@redhat.com> - 1.0.1-5%{?dist}
+- Related: rhbz#1070147.
 
 * Thu Oct 13 2011 David Zeuthen <davidz@redhat.com> - 1.0.1-4%{?dist}
 - Rebuild

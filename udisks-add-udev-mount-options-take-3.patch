@@ -1,0 +1,277 @@
+diff --git a/data/80-udisks.rules b/data/80-udisks.rules
+index d1351f3..057d5df 100644
+--- a/data/80-udisks.rules
++++ b/data/80-udisks.rules
+@@ -223,5 +223,21 @@ ENV{ID_VENDOR}=="Sony", ENV{ID_MODEL}=="PRS*Launcher", ENV{UDISKS_PRESENTATION_H
+ 
+ ##############################################################################################################
+ 
++# Additional mount options passed to udisks-daemon to allow sysamins to restrict mount to read-only or "noexec"
++# for example:
++# 
++# ENV{UDISKS_MOUNT_OPTIONS}="ro,noexec"
++# ENV{UDISKS_MOUNT_OPTIONS_ALLOW}="exec,noexec,nodev,nosuid,atime,noatime,nodiratime,ro,rw,sync,dirsync"
++#
++# use specific charset for FAT filesystems
++#
++# ENV{ID_FS_TYPE}=="vfat",
++# ENV{UDISKS_MOUNT_OPTIONS}="utf8=0,iocharset=iso8859-15"
++# 
++# mount all USB devices RO
++#
++# SUBSYSTEMS="usb", ENV{ID_FS_USAGE}=="filesystem",
++# ENV{UDISKS_MOUNT_OPTIONS}="ro"
++
+ 
+ LABEL="udisks_end"
+diff --git a/doc/man/udisks7.xml b/doc/man/udisks7.xml
+index c5d0a55..e268a3c 100644
+--- a/doc/man/udisks7.xml
++++ b/doc/man/udisks7.xml
+@@ -74,6 +74,22 @@
+         icon theme specification.
+         </para></listitem>
+       </varlistentry>
++
++      <varlistentry>
++        <term><option>UDISKS_MOUNT_OPTIONS</option></term>
++        <listitem><para>Additional mount options to be appended to the existing
++         mount options. Format is a comma separated list of options to pass to
++         mount.
++        </para></listitem>
++      </varlistentry>
++
++      <varlistentry>
++        <term><option>UDISKS_MOUNT_OPTIONS_ALLOW</option></term>
++        <listitem><para>If set, this restricts the options allowed in mount.
++         Format is a comma separated list of possible options allowed to be 
++         passed to mount (e.g. <literal>"exec,noexec,nodev,nosuid,atime,noatime,nodiratime,ro,rw,sync,dirsync,uid=,gid="</literal>)
++        </para></listitem>
++      </varlistentry>
+     </variablelist>
+     <para>
+       The <option>ID_DRIVE_*</option> properties are used to describe what
+diff --git a/src/device-private.c b/src/device-private.c
+index 22a0d35..9197fd8 100644
+--- a/src/device-private.c
++++ b/src/device-private.c
+@@ -552,6 +552,30 @@ device_set_device_presentation_icon_name (Device *device,
+ }
+ 
+ void
++device_set_device_mount_options (Device *device,
++                                 const gchar *value)
++{
++  if (G_UNLIKELY (g_strcmp0 (device->priv->device_mount_options, value) != 0))
++    {
++      g_free (device->priv->device_mount_options);
++      device->priv->device_mount_options = g_strdup (value);
++      emit_changed (device, "device_mount_options");
++    }
++}
++
++void
++device_set_device_mount_options_allow (Device *device,
++                                       const gchar *value)
++{
++  if (G_UNLIKELY (g_strcmp0 (device->priv->device_mount_options_allow, value) != 0))
++    {
++      g_free (device->priv->device_mount_options_allow);
++      device->priv->device_mount_options_allow = g_strdup (value);
++      emit_changed (device, "device_mount_options_allow");
++    }
++}
++
++void
+ device_set_device_mounted_by_uid (Device *device,
+                                   guint value)
+ {
+diff --git a/src/device-private.h b/src/device-private.h
+index a6db7f2..f4b1fb3 100644
+--- a/src/device-private.h
++++ b/src/device-private.h
+@@ -130,6 +130,8 @@ struct DevicePrivate
+   gboolean device_presentation_nopolicy;
+   char *device_presentation_name;
+   char *device_presentation_icon_name;
++  char *device_mount_options;
++  char *device_mount_options_allow;
+ 
+   char *id_usage;
+   char *id_type;
+@@ -286,6 +288,8 @@ void device_set_device_presentation_hide (Device *device, gboolean value);
+ void device_set_device_presentation_nopolicy (Device *device, gboolean value);
+ void device_set_device_presentation_name (Device *device, const gchar *value);
+ void device_set_device_presentation_icon_name (Device *device, const gchar *value);
++void device_set_device_mount_options (Device *device, const gchar *value);
++void device_set_device_mount_options_allow (Device *device, const gchar *value);
+ 
+ void device_set_id_usage (Device *device, const gchar *value);
+ void device_set_id_type (Device *device, const gchar *value);
+diff --git a/src/device.c b/src/device.c
+index c4a83ff..d00c7fb 100644
+--- a/src/device.c
++++ b/src/device.c
+@@ -214,7 +214,9 @@ enum
+     PROP_DEVICE_PRESENTATION_NOPOLICY,
+     PROP_DEVICE_PRESENTATION_NAME,
+     PROP_DEVICE_PRESENTATION_ICON_NAME,
+-
++    PROP_DEVICE_MOUNT_OPTIONS,
++    PROP_DEVICE_MOUNT_OPTIONS_ALLOW,
++        
+     PROP_JOB_IN_PROGRESS,
+     PROP_JOB_ID,
+     PROP_JOB_INITIATED_BY_UID,
+@@ -485,6 +487,12 @@ get_property (GObject *object,
+     case PROP_DEVICE_PRESENTATION_ICON_NAME:
+       g_value_set_string (value, device->priv->device_presentation_icon_name);
+       break;
++    case PROP_DEVICE_MOUNT_OPTIONS:
++      g_value_set_string (value, device->priv->device_mount_options);
++      break;
++    case PROP_DEVICE_MOUNT_OPTIONS_ALLOW:
++      g_value_set_string (value, device->priv->device_mount_options_allow);
++      break;
+ 
+     case PROP_JOB_IN_PROGRESS:
+       g_value_set_boolean (value, device->priv->job_in_progress);
+@@ -1117,6 +1125,20 @@ device_class_init (DeviceClass *klass)
+                                                         NULL,
+                                                         NULL,
+                                                         G_PARAM_READABLE));
++  g_object_class_install_property (object_class,
++                                   PROP_DEVICE_MOUNT_OPTIONS,
++                                   g_param_spec_string ("device-mount-options",
++                                                        NULL,
++                                                        NULL,
++                                                        NULL,
++                                                        G_PARAM_READABLE));
++  g_object_class_install_property (object_class,
++                                   PROP_DEVICE_MOUNT_OPTIONS_ALLOW,
++                                   g_param_spec_string ("device-mount-options-allow",
++                                                        NULL,
++                                                        NULL,
++                                                        NULL,
++                                                        G_PARAM_READABLE));
+ 
+   g_object_class_install_property (object_class, PROP_JOB_IN_PROGRESS, g_param_spec_boolean ("job-in-progress",
+                                                                                              NULL,
+@@ -1796,7 +1818,9 @@ device_finalize (GObject *object)
+   g_ptr_array_free (device->priv->device_mount_paths, TRUE);
+   g_free (device->priv->device_presentation_name);
+   g_free (device->priv->device_presentation_icon_name);
+-
++  g_free (device->priv->device_mount_options);
++  g_free (device->priv->device_mount_options_allow);
++    
+   g_free (device->priv->id_usage);
+   g_free (device->priv->id_type);
+   g_free (device->priv->id_version);
+@@ -2277,6 +2301,16 @@ diff_sorted_lists (GList *list1,
+ 
+ /* ---------------------------------------------------------------------------------------------------- */
+ 
++/* update udisks_mount_options* properties */
++static gboolean
++update_mount_options (Device *device)
++{
++  device_set_device_mount_options (device, g_udev_device_get_property (device->priv->d, "UDISKS_MOUNT_OPTIONS"));
++  device_set_device_mount_options_allow (device, g_udev_device_get_property (device->priv->d, "UDISKS_MOUNT_OPTIONS_ALLOW"));
++  
++  return TRUE;
++}
++
+ /* update id_* properties */
+ static gboolean
+ update_info_presentation (Device *device)
+@@ -4642,6 +4676,10 @@ update_info (Device *device)
+   if (!update_info_presentation (device))
+     goto out;
+ 
++  /* device_mount_options property */
++  if (!update_mount_options (device))
++    goto out;
++
+   /* id_* properties */
+   if (!update_info_id (device))
+     goto out;
+@@ -5979,6 +6017,52 @@ is_uid_in_gid (uid_t uid,
+ }
+ 
+ static gboolean
++is_mount_option_allowed_for_dev (Device *device,
++                                 const char *option)
++{
++  int n;
++  gboolean allowed;
++  const char *ep;
++  gsize ep_len;
++  gchar *options_allowed;
++  gchar **allow;
++
++  options_allowed = device->priv->device_mount_options_allow;
++
++  if (options_allowed == NULL || strlen (options_allowed) == 0)
++    return TRUE;
++
++  allowed = FALSE;
++  allow = g_strsplit (options_allowed, ",", 0);
++
++  for (n = 0; allow != NULL && allow[n] != NULL; n++)
++    {
++      ep = strstr (allow[n], "=");
++      if (ep != NULL && ep[1] == '\0')
++        {
++          ep_len = ep - allow[n] + 1;
++          if (strncmp (allow[n], option, ep_len) == 0)
++            {
++              allowed = TRUE;
++              goto out;
++            }
++        }
++      else
++        {
++         if (strcmp (allow[n], option) == 0)
++            {
++              allowed = TRUE;
++              goto out;
++            }
++        }
++    }
++
++ out:
++  g_strfreev (allow);
++  return allowed;
++}
++
++static gboolean
+ is_mount_option_allowed (const FSMountOptions *fsmo,
+                          const char *option,
+                          uid_t caller_uid)
+@@ -6308,6 +6392,11 @@ device_filesystem_mount_authorized_cb (Daemon *daemon,
+ 
+   /* validate mount options and check for authorizations */
+   s = g_string_new ("uhelper=udisks,nodev,nosuid");
++  if (device->priv->device_mount_options != NULL && strlen (device->priv->device_mount_options) > 0)
++    {
++      g_string_append_printf (s, ",%s", device->priv->device_mount_options);
++    }
++
+   for (n = 0; options[n] != NULL; n++)
+     {
+       const char *option = options[n];
+@@ -6328,6 +6417,13 @@ device_filesystem_mount_authorized_cb (Daemon *daemon,
+           goto out;
+         }
+ 
++      /* Only add that option if it's listed in udev's UDISKS_MOUNT_OPTIONS_ALLOW */
++      if (!is_mount_option_allowed_for_dev (device, option))
++        {
++          g_print ("**** NOTE: Ignoring option %s, not allowed by UDISKS_MOUNT_OPTIONS_ALLOW\n", option);
++          continue;
++        }
++
+       g_string_append_c (s, ',');
+       g_string_append (s, option);
+     }
