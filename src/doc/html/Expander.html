@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>org.freedesktop.UDisks.Expander</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<link rel="home" href="index.html" title="udisks Reference Manual">
+<link rel="up" href="ref-dbus.html" title="D-Bus API Reference">
+<link rel="prev" href="Adapter.html" title="org.freedesktop.UDisks.Adapter">
+<link rel="next" href="Port.html" title="org.freedesktop.UDisks.Port">
+<meta name="generator" content="GTK-Doc V1.13 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+<link rel="reference" href="ref-dbus.html" title="D-Bus API Reference">
+<link rel="reference" href="tools-fileformats.html" title="Manual Pages">
+<link rel="index" href="ix01.html" title="Index">
+<link rel="appendix" href="license.html" title="Appendix A. License">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="Adapter.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ref-dbus.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">udisks Reference Manual</th>
+<td><a accesskey="n" href="Port.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#Expander.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#Expander.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#Expander.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#Expander.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#Expander.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" title="org.freedesktop.UDisks.Expander">
+<a name="Expander"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle">org.freedesktop.UDisks.Expander</span></h2>
+<p>org.freedesktop.UDisks.Expander — Expander interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv" title="Methods">
+<h2>Methods</h2>
+<pre class="synopsis"></pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="id467828"></a><h2>Signals</h2>
+<pre class="synopsis"><a class="link" href="Expander.html#Expander::Changed">Changed</a> ()
+</pre>
+</div>
+<div class="refsect1" title="Implemented Interfaces">
+<a name="id484940"></a><h2>Implemented Interfaces</h2>
+<p>
+    Objects implementing org.freedesktop.UDisks.Expander also implements
+    org.freedesktop.DBus.Introspectable,
+    org.freedesktop.DBus.Properties
+    </p>
+</div>
+<div class="refsect1" title="Properties">
+<a name="id493331"></a><h2>Properties</h2>
+<pre class="synopsis"><a class="link" href="Expander.html#Expander:NativePath">'NativePath'</a>    read      's'
+<a class="link" href="Expander.html#Expander:Vendor">'Vendor'</a>        read      's'
+<a class="link" href="Expander.html#Expander:Model">'Model'</a>         read      's'
+<a class="link" href="Expander.html#Expander:Revision">'Revision'</a>      read      's'
+<a class="link" href="Expander.html#Expander:NumPorts">'NumPorts'</a>      read      'u'
+<a class="link" href="Expander.html#Expander:UpstreamPorts">'UpstreamPorts'</a> read      'ao'
+<a class="link" href="Expander.html#Expander:Adapter">'Adapter'</a>       read      'o'
+</pre>
+</div>
+<div class="refsect1" title="Description">
+<a name="id465254"></a><h2>Description</h2>
+<p>
+      
+        </p>
+<p>
+          This interface provides represents port expanders such as SAS Expanders or SATA Port Multipliers.
+        </p>
+<p>
+      
+    </p>
+</div>
+<div class="refsect1" title="Details">
+<a name="id465274"></a><h2>Details</h2>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="id465286"></a><h2>Signal Details</h2>
+<div class="refsect2" title="The Changed signal">
+<a name="id465294"></a><h3>
+<a name="Expander::Changed"></a>The Changed signal</h3>
+<pre class="programlisting">Changed ()</pre>
+</div>
+<p>
+            Something on the expander changed.
+          </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="id487843"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "NativePath" property'>
+<a name="id487853"></a><h3>
+<a name="Expander:NativePath"></a>The "NativePath" property</h3>
+<pre class="programlisting">'NativePath'  read      's'
+</pre>
+</div>
+<p>
+            OS specific native path of the expander. On Linux this is the sysfs path, for example <code class="literal">/sys/devices/pci0000:00/0000:00:03.0/0000:06:00.0/host7/port-7:0/expander-7:0/sas_expander/expander-7:0</code>.
+      </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+<hr>
+<div class="refsect2" title='The "Vendor" property'>
+<a name="id487902"></a><h3>
+<a name="Expander:Vendor"></a>The "Vendor" property</h3>
+<pre class="programlisting">'Vendor'  read      's'
+</pre>
+</div>
+<p>
+            The name of the vendor of the expander.
+      </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+<hr>
+<div class="refsect2" title='The "Model" property'>
+<a name="id499247"></a><h3>
+<a name="Expander:Model"></a>The "Model" property</h3>
+<pre class="programlisting">'Model'  read      's'
+</pre>
+</div>
+<p>
+            The name of the model of the expander.
+      </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+<hr>
+<div class="refsect2" title='The "Revision" property'>
+<a name="id499288"></a><h3>
+<a name="Expander:Revision"></a>The "Revision" property</h3>
+<pre class="programlisting">'Revision'  read      's'
+</pre>
+</div>
+<p>
+            The name of the revision of the expander.
+      </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+<hr>
+<div class="refsect2" title='The "NumPorts" property'>
+<a name="id499329"></a><h3>
+<a name="Expander:NumPorts"></a>The "NumPorts" property</h3>
+<pre class="programlisting">'NumPorts'  read      'u'
+</pre>
+</div>
+<p>
+            Number of downstream ports (aka PHYs) on the expander or 0 if unknown. Note that
+            this may not correspond to the number _physical_ connectors as several PHYs may
+            be ganged together in a separate physical connectors. See the
+            <a class="link" href="Adapter.html#Adapter:NumPorts"><code class="literal">Adapter:NumPorts</code></a>
+            property for more discussion.
+      </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+<hr>
+<div class="refsect2" title='The "UpstreamPorts" property'>
+<a name="id457654"></a><h3>
+<a name="Expander:UpstreamPorts"></a>The "UpstreamPorts" property</h3>
+<pre class="programlisting">'UpstreamPorts'  read      'ao'
+</pre>
+</div>
+<p>
+            The object paths of the upstream ports for the expander.
+      </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+<hr>
+<div class="refsect2" title='The "Adapter" property'>
+<a name="id457695"></a><h3>
+<a name="Expander:Adapter"></a>The "Adapter" property</h3>
+<pre class="programlisting">'Adapter'  read      'o'
+</pre>
+</div>
+<p>
+            The object path of the adapter the expander is attached to.
+      </p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.13</div>
+</body>
+</html>

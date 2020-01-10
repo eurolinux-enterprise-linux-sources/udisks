@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="udisks Reference Manual" link="index.html" author="David Zeuthen" name="udisks">
+  <chapters>
+    <sub name="D-Bus API Reference" link="ref-dbus.html">
+      <sub name="org.freedesktop.UDisks" link="UDisks.html"/>
+      <sub name="org.freedesktop.UDisks.Device" link="Device.html"/>
+      <sub name="org.freedesktop.UDisks.Adapter" link="Adapter.html"/>
+      <sub name="org.freedesktop.UDisks.Expander" link="Expander.html"/>
+      <sub name="org.freedesktop.UDisks.Port" link="Port.html"/>
+    </sub>
+    <sub name="Manual Pages" link="tools-fileformats.html">
+      <sub name="udisks" link="udisks.7.html"/>
+      <sub name="udisks-daemon" link="udisks-daemon.8.html"/>
+      <sub name="udisks" link="udisks.1.html"/>
+      <sub name="udisks-tcp-bridge" link="udisks-tcp-bridge.1.html"/>
+    </sub>
+    <sub name="Index" link="ix01.html"/>
+    <sub name="License" link="license.html"/>
+  </chapters>
+  <functions>
+    <function name="EnumerateAdapters ()" link="UDisks.html#UDisks.EnumerateAdapters"/>
+    <function name="EnumerateExpanders ()" link="UDisks.html#UDisks.EnumerateExpanders"/>
+    <function name="EnumeratePorts ()" link="UDisks.html#UDisks.EnumeratePorts"/>
+    <function name="EnumerateDevices ()" link="UDisks.html#UDisks.EnumerateDevices"/>
+    <function name="EnumerateDeviceFiles ()" link="UDisks.html#UDisks.EnumerateDeviceFiles"/>
+    <function name="FindDeviceByDeviceFile ()" link="UDisks.html#UDisks.FindDeviceByDeviceFile"/>
+    <function name="FindDeviceByMajorMinor ()" link="UDisks.html#UDisks.FindDeviceByMajorMinor"/>
+    <function name="DriveInhibitAllPolling ()" link="UDisks.html#UDisks.DriveInhibitAllPolling"/>
+    <function name="DriveUninhibitAllPolling ()" link="UDisks.html#UDisks.DriveUninhibitAllPolling"/>
+    <function name="DriveSetAllSpindownTimeouts ()" link="UDisks.html#UDisks.DriveSetAllSpindownTimeouts"/>
+    <function name="DriveUnsetAllSpindownTimeouts ()" link="UDisks.html#UDisks.DriveUnsetAllSpindownTimeouts"/>
+    <function name="LinuxLvm2VGStart ()" link="UDisks.html#UDisks.LinuxLvm2VGStart"/>
+    <function name="LinuxLvm2VGStop ()" link="UDisks.html#UDisks.LinuxLvm2VGStop"/>
+    <function name="LinuxLvm2VGSetName ()" link="UDisks.html#UDisks.LinuxLvm2VGSetName"/>
+    <function name="LinuxLvm2VGAddPV ()" link="UDisks.html#UDisks.LinuxLvm2VGAddPV"/>
+    <function name="LinuxLvm2VGRemovePV ()" link="UDisks.html#UDisks.LinuxLvm2VGRemovePV"/>
+    <function name="LinuxLvm2LVSetName ()" link="UDisks.html#UDisks.LinuxLvm2LVSetName"/>
+    <function name="LinuxLvm2LVStart ()" link="UDisks.html#UDisks.LinuxLvm2LVStart"/>
+    <function name="LinuxLvm2LVRemove ()" link="UDisks.html#UDisks.LinuxLvm2LVRemove"/>
+    <function name="LinuxLvm2LVCreate ()" link="UDisks.html#UDisks.LinuxLvm2LVCreate"/>
+    <function name="LinuxMdStart ()" link="UDisks.html#UDisks.LinuxMdStart"/>
+    <function name="LinuxMdCreate ()" link="UDisks.html#UDisks.LinuxMdCreate"/>
+    <function name="Inhibit ()" link="UDisks.html#UDisks.Inhibit"/>
+    <function name="Uninhibit ()" link="UDisks.html#UDisks.Uninhibit"/>
+    <function name="The DeviceAdded signal" link="UDisks.html#UDisks::DeviceAdded"/>
+    <function name="The DeviceRemoved signal" link="UDisks.html#UDisks::DeviceRemoved"/>
+    <function name="The DeviceChanged signal" link="UDisks.html#UDisks::DeviceChanged"/>
+    <function name="The DeviceJobChanged signal" link="UDisks.html#UDisks::DeviceJobChanged"/>
+    <function name="The AdapterAdded signal" link="UDisks.html#UDisks::AdapterAdded"/>
+    <function name="The AdapterRemoved signal" link="UDisks.html#UDisks::AdapterRemoved"/>
+    <function name="The AdapterChanged signal" link="UDisks.html#UDisks::AdapterChanged"/>
+    <function name="The ExpanderAdded signal" link="UDisks.html#UDisks::ExpanderAdded"/>
+    <function name="The ExpanderRemoved signal" link="UDisks.html#UDisks::ExpanderRemoved"/>
+    <function name="The ExpanderChanged signal" link="UDisks.html#UDisks::ExpanderChanged"/>
+    <function name="The PortAdded signal" link="UDisks.html#UDisks::PortAdded"/>
+    <function name="The PortRemoved signal" link="UDisks.html#UDisks::PortRemoved"/>
+    <function name="The PortChanged signal" link="UDisks.html#UDisks::PortChanged"/>
+    <function name="The &quot;DaemonVersion&quot; property" link="UDisks.html#UDisks:DaemonVersion"/>
+    <function name="The &quot;DaemonIsInhibited&quot; property" link="UDisks.html#UDisks:DaemonIsInhibited"/>
+    <function name="The &quot;SupportsLuksDevices&quot; property" link="UDisks.html#UDisks:SupportsLuksDevices"/>
+    <function name="The &quot;KnownFilesystems&quot; property" link="UDisks.html#UDisks:KnownFilesystems"/>
+    <function name="JobCancel ()" link="Device.html#Device.JobCancel"/>
+    <function name="PartitionTableCreate ()" link="Device.html#Device.PartitionTableCreate"/>
+    <function name="PartitionDelete ()" link="Device.html#Device.PartitionDelete"/>
+    <function name="PartitionCreate ()" link="Device.html#Device.PartitionCreate"/>
+    <function name="PartitionModify ()" link="Device.html#Device.PartitionModify"/>
+    <function name="FilesystemCreate ()" link="Device.html#Device.FilesystemCreate"/>
+    <function name="FilesystemSetLabel ()" link="Device.html#Device.FilesystemSetLabel"/>
+    <function name="FilesystemMount ()" link="Device.html#Device.FilesystemMount"/>
+    <function name="FilesystemUnmount ()" link="Device.html#Device.FilesystemUnmount"/>
+    <function name="FilesystemCheck ()" link="Device.html#Device.FilesystemCheck"/>
+    <function name="FilesystemListOpenFiles ()" link="Device.html#Device.FilesystemListOpenFiles"/>
+    <function name="LuksUnlock ()" link="Device.html#Device.LuksUnlock"/>
+    <function name="LuksLock ()" link="Device.html#Device.LuksLock"/>
+    <function name="LuksChangePassphrase ()" link="Device.html#Device.LuksChangePassphrase"/>
+    <function name="LinuxMdAddSpare ()" link="Device.html#Device.LinuxMdAddSpare"/>
+    <function name="LinuxMdExpand ()" link="Device.html#Device.LinuxMdExpand"/>
+    <function name="LinuxMdRemoveComponent ()" link="Device.html#Device.LinuxMdRemoveComponent"/>
+    <function name="LinuxMdStop ()" link="Device.html#Device.LinuxMdStop"/>
+    <function name="LinuxLvm2LVStop ()" link="Device.html#Device.LinuxLvm2LVStop"/>
+    <function name="LinuxMdCheck ()" link="Device.html#Device.LinuxMdCheck"/>
+    <function name="DriveInhibitPolling ()" link="Device.html#Device.DriveInhibitPolling"/>
+    <function name="DriveUninhibitPolling ()" link="Device.html#Device.DriveUninhibitPolling"/>
+    <function name="DrivePollMedia ()" link="Device.html#Device.DrivePollMedia"/>
+    <function name="DriveEject ()" link="Device.html#Device.DriveEject"/>
+    <function name="DriveDetach ()" link="Device.html#Device.DriveDetach"/>
+    <function name="DriveSetSpindownTimeout ()" link="Device.html#Device.DriveSetSpindownTimeout"/>
+    <function name="DriveUnsetSpindownTimeout ()" link="Device.html#Device.DriveUnsetSpindownTimeout"/>
+    <function name="DriveAtaSmartRefreshData ()" link="Device.html#Device.DriveAtaSmartRefreshData"/>
+    <function name="DriveAtaSmartInitiateSelftest ()" link="Device.html#Device.DriveAtaSmartInitiateSelftest"/>
+    <function name="DriveBenchmark ()" link="Device.html#Device.DriveBenchmark"/>
+    <function name="The Changed signal" link="Device.html#Device::Changed"/>
+    <function name="The JobChanged signal" link="Device.html#Device::JobChanged"/>
+    <function name="The &quot;NativePath&quot; property" link="Device.html#Device:NativePath"/>
+    <function name="The &quot;DeviceDetectionTime&quot; property" link="Device.html#Device:DeviceDetectionTime"/>
+    <function name="The &quot;DeviceMediaDetectionTime&quot; property" link="Device.html#Device:DeviceMediaDetectionTime"/>
+    <function name="The &quot;DeviceMajor&quot; property" link="Device.html#Device:DeviceMajor"/>
+    <function name="The &quot;DeviceMinor&quot; property" link="Device.html#Device:DeviceMinor"/>
+    <function name="The &quot;DeviceFile&quot; property" link="Device.html#Device:DeviceFile"/>
+    <function name="The &quot;DeviceFilePresentation&quot; property" link="Device.html#Device:DeviceFilePresentation"/>
+    <function name="The &quot;DeviceFileById&quot; property" link="Device.html#Device:DeviceFileById"/>
+    <function name="The &quot;DeviceFileByPath&quot; property" link="Device.html#Device:DeviceFileByPath"/>
+    <function name="The &quot;DeviceIsSystemInternal&quot; property" link="Device.html#Device:DeviceIsSystemInternal"/>
+    <function name="The &quot;DeviceIsPartition&quot; property" link="Device.html#Device:DeviceIsPartition"/>
+    <function name="The &quot;DeviceIsPartitionTable&quot; property" link="Device.html#Device:DeviceIsPartitionTable"/>
+    <function name="The &quot;DeviceIsRemovable&quot; property" link="Device.html#Device:DeviceIsRemovable"/>
+    <function name="The &quot;DeviceIsMediaAvailable&quot; property" link="Device.html#Device:DeviceIsMediaAvailable"/>
+    <function name="The &quot;DeviceIsMediaChangeDetected&quot; property" link="Device.html#Device:DeviceIsMediaChangeDetected"/>
+    <function name="The &quot;DeviceIsMediaChangeDetectionPolling&quot; property" link="Device.html#Device:DeviceIsMediaChangeDetectionPolling"/>
+    <function name="The &quot;DeviceIsMediaChangeDetectionInhibitable&quot; property" link="Device.html#Device:DeviceIsMediaChangeDetectionInhibitable"/>
+    <function name="The &quot;DeviceIsMediaChangeDetectionInhibited&quot; property" link="Device.html#Device:DeviceIsMediaChangeDetectionInhibited"/>
+    <function name="The &quot;DeviceIsReadOnly&quot; property" link="Device.html#Device:DeviceIsReadOnly"/>
+    <function name="The &quot;DeviceIsDrive&quot; property" link="Device.html#Device:DeviceIsDrive"/>
+    <function name="The &quot;DeviceIsOpticalDisc&quot; property" link="Device.html#Device:DeviceIsOpticalDisc"/>
+    <function name="The &quot;DeviceIsMounted&quot; property" link="Device.html#Device:DeviceIsMounted"/>
+    <function name="The &quot;DeviceMountPaths&quot; property" link="Device.html#Device:DeviceMountPaths"/>
+    <function name="The &quot;DeviceMountedByUid&quot; property" link="Device.html#Device:DeviceMountedByUid"/>
+    <function name="The &quot;DeviceIsLuks&quot; property" link="Device.html#Device:DeviceIsLuks"/>
+    <function name="The &quot;DeviceIsLuksCleartext&quot; property" link="Device.html#Device:DeviceIsLuksCleartext"/>
+    <function name="The &quot;DeviceIsLinuxMdComponent&quot; property" link="Device.html#Device:DeviceIsLinuxMdComponent"/>
+    <function name="The &quot;DeviceIsLinuxMd&quot; property" link="Device.html#Device:DeviceIsLinuxMd"/>
+    <function name="The &quot;DeviceIsLinuxLvm2LV&quot; property" link="Device.html#Device:DeviceIsLinuxLvm2LV"/>
+    <function name="The &quot;DeviceIsLinuxLvm2PV&quot; property" link="Device.html#Device:DeviceIsLinuxLvm2PV"/>
+    <function name="The &quot;DeviceIsLinuxDmmpComponent&quot; property" link="Device.html#Device:DeviceIsLinuxDmmpComponent"/>
+    <function name="The &quot;DeviceIsLinuxDmmp&quot; property" link="Device.html#Device:DeviceIsLinuxDmmp"/>
+    <function name="The &quot;DeviceIsLinuxLoop&quot; property" link="Device.html#Device:DeviceIsLinuxLoop"/>
+    <function name="The &quot;DeviceSize&quot; property" link="Device.html#Device:DeviceSize"/>
+    <function name="The &quot;DeviceBlockSize&quot; property" link="Device.html#Device:DeviceBlockSize"/>
+    <function name="The &quot;DevicePresentationHide&quot; property" link="Device.html#Device:DevicePresentationHide"/>
+    <function name="The &quot;DevicePresentationNopolicy&quot; property" link="Device.html#Device:DevicePresentationNopolicy"/>
+    <function name="The &quot;DevicePresentationName&quot; property" link="Device.html#Device:DevicePresentationName"/>
+    <function name="The &quot;DevicePresentationIconName&quot; property" link="Device.html#Device:DevicePresentationIconName"/>
+    <function name="The &quot;JobInProgress&quot; property" link="Device.html#Device:JobInProgress"/>
+    <function name="The &quot;JobId&quot; property" link="Device.html#Device:JobId"/>
+    <function name="The &quot;JobInitiatedByUid&quot; property" link="Device.html#Device:JobInitiatedByUid"/>
+    <function name="The &quot;JobIsCancellable&quot; property" link="Device.html#Device:JobIsCancellable"/>
+    <function name="The &quot;JobPercentage&quot; property" link="Device.html#Device:JobPercentage"/>
+    <function name="The &quot;IdUsage&quot; property" link="Device.html#Device:IdUsage"/>
+    <function name="The &quot;IdType&quot; property" link="Device.html#Device:IdType"/>
+    <function name="The &quot;IdVersion&quot; property" link="Device.html#Device:IdVersion"/>
+    <function name="The &quot;IdUuid&quot; property" link="Device.html#Device:IdUuid"/>
+    <function name="The &quot;IdLabel&quot; property" link="Device.html#Device:IdLabel"/>
+    <function name="The &quot;LuksHolder&quot; property" link="Device.html#Device:LuksHolder"/>
+    <function name="The &quot;LuksCleartextSlave&quot; property" link="Device.html#Device:LuksCleartextSlave"/>
+    <function name="The &quot;LuksCleartextUnlockedByUid&quot; property" link="Device.html#Device:LuksCleartextUnlockedByUid"/>
+    <function name="The &quot;PartitionSlave&quot; property" link="Device.html#Device:PartitionSlave"/>
+    <function name="The &quot;PartitionScheme&quot; property" link="Device.html#Device:PartitionScheme"/>
+    <function name="The &quot;PartitionType&quot; property" link="Device.html#Device:PartitionType"/>
+    <function name="The &quot;PartitionLabel&quot; property" link="Device.html#Device:PartitionLabel"/>
+    <function name="The &quot;PartitionUuid&quot; property" link="Device.html#Device:PartitionUuid"/>
+    <function name="The &quot;PartitionFlags&quot; property" link="Device.html#Device:PartitionFlags"/>
+    <function name="The &quot;PartitionNumber&quot; property" link="Device.html#Device:PartitionNumber"/>
+    <function name="The &quot;PartitionOffset&quot; property" link="Device.html#Device:PartitionOffset"/>
+    <function name="The &quot;PartitionSize&quot; property" link="Device.html#Device:PartitionSize"/>
+    <function name="The &quot;PartitionAlignmentOffset&quot; property" link="Device.html#Device:PartitionAlignmentOffset"/>
+    <function name="The &quot;PartitionTableScheme&quot; property" link="Device.html#Device:PartitionTableScheme"/>
+    <function name="The &quot;PartitionTableCount&quot; property" link="Device.html#Device:PartitionTableCount"/>
+    <function name="The &quot;DriveVendor&quot; property" link="Device.html#Device:DriveVendor"/>
+    <function name="The &quot;DriveModel&quot; property" link="Device.html#Device:DriveModel"/>
+    <function name="The &quot;DriveRevision&quot; property" link="Device.html#Device:DriveRevision"/>
+    <function name="The &quot;DriveSerial&quot; property" link="Device.html#Device:DriveSerial"/>
+    <function name="The &quot;DriveWwn&quot; property" link="Device.html#Device:DriveWwn"/>
+    <function name="The &quot;DriveRotationRate&quot; property" link="Device.html#Device:DriveRotationRate"/>
+    <function name="The &quot;DriveWriteCache&quot; property" link="Device.html#Device:DriveWriteCache"/>
+    <function name="The &quot;DriveConnectionInterface&quot; property" link="Device.html#Device:DriveConnectionInterface"/>
+    <function name="The &quot;DriveConnectionSpeed&quot; property" link="Device.html#Device:DriveConnectionSpeed"/>
+    <function name="The &quot;DriveMediaCompatibility&quot; property" link="Device.html#Device:DriveMediaCompatibility"/>
+    <function name="The &quot;DriveMedia&quot; property" link="Device.html#Device:DriveMedia"/>
+    <function name="The &quot;DriveIsMediaEjectable&quot; property" link="Device.html#Device:DriveIsMediaEjectable"/>
+    <function name="The &quot;DriveCanDetach&quot; property" link="Device.html#Device:DriveCanDetach"/>
+    <function name="The &quot;DriveCanSpindown&quot; property" link="Device.html#Device:DriveCanSpindown"/>
+    <function name="The &quot;DriveIsRotational&quot; property" link="Device.html#Device:DriveIsRotational"/>
+    <function name="The &quot;DriveAdapter&quot; property" link="Device.html#Device:DriveAdapter"/>
+    <function name="The &quot;DrivePorts&quot; property" link="Device.html#Device:DrivePorts"/>
+    <function name="The &quot;DriveSimilarDevices&quot; property" link="Device.html#Device:DriveSimilarDevices"/>
+    <function name="The &quot;OpticalDiscIsBlank&quot; property" link="Device.html#Device:OpticalDiscIsBlank"/>
+    <function name="The &quot;OpticalDiscIsAppendable&quot; property" link="Device.html#Device:OpticalDiscIsAppendable"/>
+    <function name="The &quot;OpticalDiscIsClosed&quot; property" link="Device.html#Device:OpticalDiscIsClosed"/>
+    <function name="The &quot;OpticalDiscNumTracks&quot; property" link="Device.html#Device:OpticalDiscNumTracks"/>
+    <function name="The &quot;OpticalDiscNumAudioTracks&quot; property" link="Device.html#Device:OpticalDiscNumAudioTracks"/>
+    <function name="The &quot;OpticalDiscNumSessions&quot; property" link="Device.html#Device:OpticalDiscNumSessions"/>
+    <function name="The &quot;DriveAtaSmartIsAvailable&quot; property" link="Device.html#Device:DriveAtaSmartIsAvailable"/>
+    <function name="The &quot;DriveAtaSmartTimeCollected&quot; property" link="Device.html#Device:DriveAtaSmartTimeCollected"/>
+    <function name="The &quot;DriveAtaSmartStatus&quot; property" link="Device.html#Device:DriveAtaSmartStatus"/>
+    <function name="The &quot;DriveAtaSmartBlob&quot; property" link="Device.html#Device:DriveAtaSmartBlob"/>
+    <function name="The &quot;LinuxMdComponentLevel&quot; property" link="Device.html#Device:LinuxMdComponentLevel"/>
+    <function name="The &quot;LinuxMdComponentPosition&quot; property" link="Device.html#Device:LinuxMdComponentPosition"/>
+    <function name="The &quot;LinuxMdComponentNumRaidDevices&quot; property" link="Device.html#Device:LinuxMdComponentNumRaidDevices"/>
+    <function name="The &quot;LinuxMdComponentUuid&quot; property" link="Device.html#Device:LinuxMdComponentUuid"/>
+    <function name="The &quot;LinuxMdComponentName&quot; property" link="Device.html#Device:LinuxMdComponentName"/>
+    <function name="The &quot;LinuxMdComponentHomeHost&quot; property" link="Device.html#Device:LinuxMdComponentHomeHost"/>
+    <function name="The &quot;LinuxMdComponentVersion&quot; property" link="Device.html#Device:LinuxMdComponentVersion"/>
+    <function name="The &quot;LinuxMdComponentHolder&quot; property" link="Device.html#Device:LinuxMdComponentHolder"/>
+    <function name="The &quot;LinuxMdComponentState&quot; property" link="Device.html#Device:LinuxMdComponentState"/>
+    <function name="The &quot;LinuxMdState&quot; property" link="Device.html#Device:LinuxMdState"/>
+    <function name="The &quot;LinuxMdLevel&quot; property" link="Device.html#Device:LinuxMdLevel"/>
+    <function name="The &quot;LinuxMdUuid&quot; property" link="Device.html#Device:LinuxMdUuid"/>
+    <function name="The &quot;LinuxMdHomeHost&quot; property" link="Device.html#Device:LinuxMdHomeHost"/>
+    <function name="The &quot;LinuxMdName&quot; property" link="Device.html#Device:LinuxMdName"/>
+    <function name="The &quot;LinuxMdNumRaidDevices&quot; property" link="Device.html#Device:LinuxMdNumRaidDevices"/>
+    <function name="The &quot;LinuxMdVersion&quot; property" link="Device.html#Device:LinuxMdVersion"/>
+    <function name="The &quot;LinuxMdSlaves&quot; property" link="Device.html#Device:LinuxMdSlaves"/>
+    <function name="The &quot;LinuxMdIsDegraded&quot; property" link="Device.html#Device:LinuxMdIsDegraded"/>
+    <function name="The &quot;LinuxMdSyncAction&quot; property" link="Device.html#Device:LinuxMdSyncAction"/>
+    <function name="The &quot;LinuxMdSyncPercentage&quot; property" link="Device.html#Device:LinuxMdSyncPercentage"/>
+    <function name="The &quot;LinuxMdSyncSpeed&quot; property" link="Device.html#Device:LinuxMdSyncSpeed"/>
+    <function name="The &quot;LinuxLvm2PVUuid&quot; property" link="Device.html#Device:LinuxLvm2PVUuid"/>
+    <function name="The &quot;LinuxLvm2PVNumMetadataAreas&quot; property" link="Device.html#Device:LinuxLvm2PVNumMetadataAreas"/>
+    <function name="The &quot;LinuxLvm2PVGroupName&quot; property" link="Device.html#Device:LinuxLvm2PVGroupName"/>
+    <function name="The &quot;LinuxLvm2PVGroupUuid&quot; property" link="Device.html#Device:LinuxLvm2PVGroupUuid"/>
+    <function name="The &quot;LinuxLvm2PVGroupSize&quot; property" link="Device.html#Device:LinuxLvm2PVGroupSize"/>
+    <function name="The &quot;LinuxLvm2PVGroupUnallocatedSize&quot; property" link="Device.html#Device:LinuxLvm2PVGroupUnallocatedSize"/>
+    <function name="The &quot;LinuxLvm2PVGroupSequenceNumber&quot; property" link="Device.html#Device:LinuxLvm2PVGroupSequenceNumber"/>
+    <function name="The &quot;LinuxLvm2PVGroupExtentSize&quot; property" link="Device.html#Device:LinuxLvm2PVGroupExtentSize"/>
+    <function name="The &quot;LinuxLvm2PVGroupPhysicalVolumes&quot; property" link="Device.html#Device:LinuxLvm2PVGroupPhysicalVolumes"/>
+    <function name="The &quot;LinuxLvm2PVGroupLogicalVolumes&quot; property" link="Device.html#Device:LinuxLvm2PVGroupLogicalVolumes"/>
+    <function name="The &quot;LinuxLvm2LVName&quot; property" link="Device.html#Device:LinuxLvm2LVName"/>
+    <function name="The &quot;LinuxLvm2LVUuid&quot; property" link="Device.html#Device:LinuxLvm2LVUuid"/>
+    <function name="The &quot;LinuxLvm2LVGroupName&quot; property" link="Device.html#Device:LinuxLvm2LVGroupName"/>
+    <function name="The &quot;LinuxLvm2LVGroupUuid&quot; property" link="Device.html#Device:LinuxLvm2LVGroupUuid"/>
+    <function name="The &quot;LinuxDmmpComponentHolder&quot; property" link="Device.html#Device:LinuxDmmpComponentHolder"/>
+    <function name="The &quot;LinuxDmmpName&quot; property" link="Device.html#Device:LinuxDmmpName"/>
+    <function name="The &quot;LinuxDmmpSlaves&quot; property" link="Device.html#Device:LinuxDmmpSlaves"/>
+    <function name="The &quot;LinuxDmmpParameters&quot; property" link="Device.html#Device:LinuxDmmpParameters"/>
+    <function name="The &quot;LinuxLoopFilename&quot; property" link="Device.html#Device:LinuxLoopFilename"/>
+    <function name="The Changed signal" link="Adapter.html#Adapter::Changed"/>
+    <function name="The &quot;NativePath&quot; property" link="Adapter.html#Adapter:NativePath"/>
+    <function name="The &quot;Vendor&quot; property" link="Adapter.html#Adapter:Vendor"/>
+    <function name="The &quot;Model&quot; property" link="Adapter.html#Adapter:Model"/>
+    <function name="The &quot;Driver&quot; property" link="Adapter.html#Adapter:Driver"/>
+    <function name="The &quot;NumPorts&quot; property" link="Adapter.html#Adapter:NumPorts"/>
+    <function name="The &quot;Fabric&quot; property" link="Adapter.html#Adapter:Fabric"/>
+    <function name="The Changed signal" link="Expander.html#Expander::Changed"/>
+    <function name="The &quot;NativePath&quot; property" link="Expander.html#Expander:NativePath"/>
+    <function name="The &quot;Vendor&quot; property" link="Expander.html#Expander:Vendor"/>
+    <function name="The &quot;Model&quot; property" link="Expander.html#Expander:Model"/>
+    <function name="The &quot;Revision&quot; property" link="Expander.html#Expander:Revision"/>
+    <function name="The &quot;NumPorts&quot; property" link="Expander.html#Expander:NumPorts"/>
+    <function name="The &quot;UpstreamPorts&quot; property" link="Expander.html#Expander:UpstreamPorts"/>
+    <function name="The &quot;Adapter&quot; property" link="Expander.html#Expander:Adapter"/>
+    <function name="The Changed signal" link="Port.html#Port::Changed"/>
+    <function name="The &quot;NativePath&quot; property" link="Port.html#Port:NativePath"/>
+    <function name="The &quot;Adapter&quot; property" link="Port.html#Port:Adapter"/>
+    <function name="The &quot;Parent&quot; property" link="Port.html#Port:Parent"/>
+    <function name="The &quot;Number&quot; property" link="Port.html#Port:Number"/>
+    <function name="The &quot;ConnectorType&quot; property" link="Port.html#Port:ConnectorType"/>
+  </functions>
+</book>
