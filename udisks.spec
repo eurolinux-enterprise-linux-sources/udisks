@@ -13,7 +13,7 @@
 Summary: Storage Management Service
 Name: udisks
 Version: 1.0.1
-Release: 9%{?dist}
+Release: 11%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
 URL: http://www.freedesktop.org/wiki/Software/udisks
@@ -66,6 +66,14 @@ Patch3: udisks-add-udev-mount-options-take-3.patch
 # External storage device mounts can get force umounted during testing involving adapter removes and adds
 Patch4: udisks-dm-suspended-noremove.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=1183131
+# Fix issues with LUKS encrypted devices
+Patch5: udisks-luks-teardown.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=965206
+# Fix a memory leak
+Patch6: udisks-1.0.1-memleak.patch
+
 # for /proc/self/mountinfo, only available in 2.6.26 or higher
 Conflicts: kernel < 2.6.26
 
@@ -108,7 +116,8 @@ D-Bus interface documentation for udisks.
 %patch2 -p1 -b .buffer-overflow
 %patch3 -p1 -b .add-udev-mount-options
 %patch4 -p1 -b .dm-suspended-noremove
-
+%patch5 -p1 -b .luks-teardown
+%patch6 -p1 -b .memleak
 %build
 %configure --enable-gtk-doc --disable-lvm2 --disable-dmmp --disable-remote-access
 make
@@ -178,6 +187,16 @@ rm -rf $RPM_BUILD_ROOT
 # Note: please don't forget the %{?dist} in the changelog. Thanks
 #
 %changelog
+* Thu Oct 20 2016 Tomas Smetana <tsmetana@redhat.com> - 1.0.1-11%{?dist}
+- Fix LUKS errors on re-inserting the encrypted disk
+- Plug a memory leak
+- Related: rhbz#1183131
+- Related: rhbz#965206
+
+* Wed Mar 11 2015 Tomas Smetana <tsmetana@redhat.com> - 1.0.1-10%{?dist}
+- One more attempt to fix #1121742
+- Related: rhbz#1121742
+
 * Wed Mar 04 2015 Tomas Smetana <tsmetana@redhat.com> - 1.0.1-9%{?dist}
 - Improve patch for #1121742
 - Related: rhbz#1121742

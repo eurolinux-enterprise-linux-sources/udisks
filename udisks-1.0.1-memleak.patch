@@ -1,0 +1,20 @@
+diff -up udisks-1.0.1/src/device.c.memleak udisks-1.0.1/src/device.c
+--- udisks-1.0.1/src/device.c.memleak	2016-04-08 14:46:00.000000000 +0200
++++ udisks-1.0.1/src/device.c	2016-04-08 14:47:04.000000000 +0200
+@@ -4219,7 +4219,7 @@ update_info_drive_ports (Device *device)
+ static gboolean
+ update_info_drive_similar_devices (Device *device)
+ {
+-  GList *devices;
++  GList *devices = NULL;
+   GList *l;
+   GPtrArray *p;
+ 
+@@ -4278,6 +4278,7 @@ update_info_drive_similar_devices (Devic
+     }
+ 
+  out:
++  g_list_free(devices);
+   g_ptr_array_add (p, NULL);
+   device_set_drive_similar_devices (device, (GStrv) p->pdata);
+   g_ptr_array_free (p, TRUE);
