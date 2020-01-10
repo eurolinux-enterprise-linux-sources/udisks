@@ -13,7 +13,7 @@
 Summary: Storage Management Service
 Name: udisks
 Version: 1.0.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 Group: System Environment/Libraries
 URL: http://www.freedesktop.org/wiki/Software/udisks
@@ -51,6 +51,8 @@ Requires: dosfstools
 # for mlabel
 Requires: mtools
 
+Patch1: udisks-1.0.1-disable-dm-watch.patch
+
 # for /proc/self/mountinfo, only available in 2.6.26 or higher
 Conflicts: kernel < 2.6.26
 
@@ -80,6 +82,7 @@ D-Bus interface definitions and documentation for udisks.
 
 %prep
 %setup -q
+%patch1 -p1 -b .disable-dm-watch
 
 %build
 %configure --enable-gtk-doc --disable-lvm2 --disable-dmmp --disable-remote-access
@@ -147,6 +150,14 @@ rm -rf $RPM_BUILD_ROOT
 # Note: please don't forget the %{?dist} in the changelog. Thanks
 #
 %changelog
+* Thu Oct 13 2011 David Zeuthen <davidz@redhat.com> - 1.0.1-4%{?dist}
+- Rebuild
+- Related: rhbz#738479
+
+* Tue Oct 11 2011 David Zeuthen <davidz@redhat.com> - 1.0.1-3%{?dist}
+- Remove watch rule for DM devices
+- Related: rhbz#738479
+
 * Tue Sep  7 2010 Dennis Gregorovic <dgregor@redhat.com> - 1.0.1-2%{?dist}
 - Remove requirement on xfsprogs
 - Related: rhbz#630986

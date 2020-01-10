@@ -1,0 +1,13 @@
+--- udisks-1.0.1/data/80-udisks.rules.orig	2011-10-11 10:33:00.603701000 -0400
++++ udisks-1.0.1/data/80-udisks.rules	2011-10-11 10:34:05.774974000 -0400
+@@ -58,7 +58,9 @@
+ 
+ # Make udevd synthesize a 'change' uevent when last opener of a rw-fd closes the fd - this
+ # should be part of the device-mapper rules
+-KERNEL=="dm-*", OPTIONS+="watch"
++#
++# Disabled as per #738479
++# KERNEL=="dm-*", OPTIONS+="watch"
+ 
+ ##############################################################################################################
+ # Probe LVM2 Physical Volumes - this will eventually be part of the LVM2 package
